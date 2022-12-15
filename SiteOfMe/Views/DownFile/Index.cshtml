@@ -1,0 +1,34 @@
+﻿@model IEnumerable<SiteOfMe.Models.DownFile>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            DownUrl
+        </th>
+        <th>
+            Description
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DownFileId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DownFileId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DownFileId })
+        </td>
+        <td>
+            @item.DownUrl
+        </td>
+        <td>
+            @item.Description
+        </td>
+    </tr>
+}
+
+</table>
+

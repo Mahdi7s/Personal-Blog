@@ -1,0 +1,42 @@
+﻿@model SiteOfMe.Models.Quote
+@if (Model != null)
+{
+    var place = "place-" + (Model.IsRightToLeft ? "right" : "left");
+    var oppositePlace = "place-" + (Model.IsRightToLeft ? "left" : "right");
+    var hasThumb = !string.IsNullOrEmpty(Model.Quoter.Thumb);
+    
+    
+    <div class="grid bg-color-lighten padding10" dir="@(Model.IsRightToLeft ? "rtl" : "ltr")">
+        @*        <div id="navigator">
+            <a title="مطلب قبلی" href="@(ViewBag.Navigator.PrevPostId >= 0 ? Url.Action("Details", "Post", new {postId=ViewBag.Navigator.PrevPostId}): "#")" class="button prevPost"></a><br/>
+            <a title="لیست مطالب" href="@Url.Action("Index", "Home")" class="button home"></a><br/>
+            <a title="مطلب بعدی" href="@(ViewBag.Navigator.NextPostId >= 0 ? Url.Action("Details", "Post", new {postId=ViewBag.Navigator.NextPostId}): "#")" class="button nextPost"></a>
+        </div>*@
+        <div class="row">
+            <div class="page bg-color-lighten">
+                <h2 class="span@(hasThumb ? "9" : "12") text-center">@Model.QuoteText</h2>
+                @if (hasThumb)
+                {
+                    <div title="نقل شده از" class="span2 @oppositePlace">
+                        <div class="row span12">
+                            <img style="width:100%;" src="@Url.Content("~/Content/Thumbs/Quoters/" + Model.Quoter.Thumb)" />
+                        </div>
+                        <div class="row span12">
+                            <h4 class="text-center label info span2">@Model.Quoter.Name</h4>
+                        </div>
+                    </div>
+                }
+                else
+                { 
+                    <h3 class="span2 label info text-center @oppositePlace" style="direction:rtl">@Model.Quoter.Name</h3>
+                }
+            </div>
+        </div>
+
+        @*        <div id="syndication">
+            <a class="button rss" title="خوراک RSS" href="http://feeds.feedburner.com/7sfeed"></a>
+            <a class="button contact-me" title="تماس با من" href="mailto:info@mahdi7s.com"></a>
+            <a id="pageDown" class="button down" title="پایین صفحه"></a>
+        </div>*@
+    </div>
+}

@@ -1,0 +1,68 @@
+﻿@using SiteOfMe.Models
+@using SiteOfMe.Utils
+@using SiteOfMe.ViewModels
+
+@model SiteOfMe.Models.Comment
+@{
+    ViewBag.IsAdmin = User.IsInRole("Admin");
+}
+
+@helper RenderComment(Comment comment, bool isAdminReply = false)
+{
+    <div id="comment-@comment.CommentId" class="grid bg-color-@Html.RandomW8BgColor() fg-color-@Html.RandomW8FgColor()" style="@(isAdminReply ? "margin-top: -7px" : "")">
+        <div class="row span12">
+            <div class="span4 place-left padding3" style="margin: 0; padding: 3px; text-align: left;">
+                <span>زمان ارسال: </span>
+                <span>@comment.PublishDate.ToPersianDate(true)</span>
+            </div>
+            <div class="span4 place-right" style="margin: 0; padding: 3px;">
+                <span>@(isAdminReply ? "پاسخ داده شده توسط: " :  "ارسال شده توسط: ")</span>
+                @if (!string.IsNullOrWhiteSpace(comment.AnonymousUser.Website))
+                {
+                    <a href="@comment.AnonymousUser.Website">@comment.AnonymousUser.Name</a>
+                }
+                else
+                {
+                    <span>@comment.AnonymousUser.Name</span>
+                }
+            </div>
+        </div>
+        <div class="row span12">
+            <pre class="@(isAdminReply ? "bg-color-" + @Html.RandomW8BgColor(false) + " fg-color-" + @Html.RandomW8FgColor() : "")">@Html.Raw(comment.Body.Value)</pre>
+        </div>
+    </div>
+}
+
+@helper RenderAdminTools(Comment comment)
+{
+    if (!comment.IsReply && ViewBag.IsAdmin)
+    {
+        var updateTargetId = "comment-" + comment.CommentId;
+        var replyTargetId = "reply-" + comment.CommentId;
+    <div class="toolbar">
+        @if (!comment.IsVisible)
+        {
+            @Ajax.ActionLink("نمایش", "SetVisible", "Comment", new { id = comment.CommentId }, new AjaxOptions { UpdateTargetId = updateTargetId }, new { @class = "button" })
+        }
+        @Html.ActionLink("ویرایش", "Edit", "Comment", new { id = comment.CommentId }, new { @class = "button" })
+        @(comment.Reply != null ?
+            Ajax.ActionLink("ویرایش پاسخ", "EditReply", "Comment", new { commentId = comment.CommentId }, new AjaxOptions { UpdateTargetId = replyTargetId }, new { @class = "button" }) :
+            Ajax.ActionLink("پاسخ دادن", "CreateReply", "Comment", new { id = comment.CommentId }, new AjaxOptions { UpdateTargetId = replyTargetId }, new { @class = "button" }))
+        @Ajax.ActionLink("حذف", "Delete", "Comment", new { id = comment.CommentId, postId = comment.PostId }, new AjaxOptions { UpdateTargetId = updateTargetId }, new { @class = "button" })
+    </div>
+    }
+}
+
+@RenderAdminTools(Model)
+@if (!Model.IsReply && (Model.IsVisible || ViewBag.IsAdmin))
+{
+    @RenderComment(Model)
+    <div id="reply-@Model.CommentId">
+        @if (Model.Reply != null)
+        {
+            <div class="comment commentReply">
+                @RenderComment(Model.Reply, true)
+            </div>
+        }
+    </div>
+}

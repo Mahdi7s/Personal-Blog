@@ -1,0 +1,49 @@
+﻿<div class="nav-bar-inner">
+    <span class="pull-menu"></span>
+    <a class="place-right" href="@Url.Action("Index", "Home")" >
+        <span class="element brand">
+            <i class="icon-home"></i>
+            Mahdi7s.com
+        </span>
+    </a>
+
+    <div class="divider place-right"></div>
+
+    <ul class="menu place-right" style="overflow: visible;">
+        @*<li class="place-right">@Html.ActionLink("صفحه اصلی", "Index", "Post")</li>*@
+        <li class="place-right">@Html.ActionLink("پست ها", "Index", "Post")</li>
+        @if (ViewBag.ShowRelatesMenu == true)
+        {
+            <li class="place-right">@Ajax.ActionLink("مرتبط", "ListPartial", "DownFile", null, new AjaxOptions { UpdateTargetId = "codeGallery", OnBegin = "onLoadingCodeGallery", OnSuccess = "onCodeGalleryLoaded" })
+            </li>
+        }
+        @if (!User.Identity.IsAuthenticated)
+        {
+            @*<li class="place-right">
+                @Html.ActionLink("ورود", "Login", "Account")
+            </li>*@
+        }
+        else
+        {
+            if (User.IsInRole("Admin"))
+            {
+            <li class="place-right">@Html.ActionLink("پست جدید", "Create", "Post")</li>
+            <li class="place-right">@Html.ActionLink("ضمیمه ها", "Index", "Appendix")</li>
+            <li class="place-right">@Html.ActionLink("فایل جدید", "Create", "DownFile")</li>
+            <li class="place-right">@Html.ActionLink("مرتبط جدید", "Create", "PostRelate")</li>
+            <li class="place-right">@Html.ActionLink("لینک مرتبط جدید", "Insert", "RelatedLink")</li>
+            <li class="place-right">@Html.ActionLink("سخن های زیبا", "Index", "Quote")</li>
+            <li class="place-right">@Html.ActionLink("مدیریت", "Index", "Admin")</li>
+            }
+            <li class="place-right">
+                @Html.ActionLink(User.Identity.Name, "Index", "User")
+            </li>
+            <li class="place-right">
+                @Html.ActionLink("خروج", "LogOut", "Account", null, new AjaxOptions { UpdateTargetId = "page" })
+            </li>
+        }
+
+        <li class="place-right">@Html.ActionLink("درباره من", "", "")</li>
+        @*<li class="place-right">@Html.ActionLink("تماس با من", "", "")</li>*@
+    </ul>
+</div>

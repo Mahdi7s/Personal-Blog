@@ -1,0 +1,71 @@
+﻿@using SiteOfMe.Models
+@using SiteOfMe.Utils
+
+@model IEnumerable<Post>
+@{
+    ViewBag.Title = "www.Mahdi7$.com";
+
+    var postCount = Model.Count();
+    var isSearching = !string.IsNullOrWhiteSpace(Request.QueryString["k"]);
+    var postsTitle = isSearching ? "نتایج جستجو" : "لیست مطالب";
+}
+
+<div class="tiles">
+    <h2 class="span12 place-left label info">@postsTitle</h2>
+
+    @if (isSearching && !Model.Any())
+    {
+        <div class="text-center">
+            <h3>نتیجه ای یافت نشد</h3>
+        </div>
+    }
+    else
+    {
+        foreach (var post in Model)
+        {
+        <a id="tile@(post.PostId)" href="@Url.Action("Details", "Post", new { id = post.PostId, title = Html.EncodeTitle(post.Title) })" class="tile tile-min icon place-right resizable-tile bg-color-@Html.RandomW8BgColor()">
+            <div class="tile-content row">
+                @if (!string.IsNullOrEmpty(post.Thumb))
+                {
+                    <img src="@Url.Content("~/Content/Thumbs/Posts/" + post.Thumb)" class="span1" />
+                }
+                <div class="data span3">
+                    <p class="fg-color-@Html.RandomW8FgColor()" style="font-size: 13pt;">@post.Title</p>
+                </div>
+            </div>
+
+            <div class="brand">
+                <span class="badge fg-color-@Html.RandomW8FgColor()" title="تعداد بازدیدها">
+                    @post.Views
+                </span>
+                <span class="name fg-color-@Html.RandomW8FgColor()" title="زمان ارسال">@post.PublishDate.ToPersianDate(false)</span>
+            </div>
+        </a>
+        }
+    }
+</div>
+
+<div class="tiles clearfix">
+    <h2 class="span12 label place-left info">ابر برچسب ها</h2>
+    @{Html.RenderAction("TagsPartial", "Tag");}
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var toggleDouble = function ($elem, double) {
+            var duration = 700,
+                easing = 'easeInOutExpo';
+            return double ? $elem.switchClass('icon', 'double', duration, easing).switchClass('tile-min', 'tile-max', duration, easing) :
+                $elem.switchClass('double', 'icon', duration, easing).switchClass('tile-max', 'tile-min', duration, easing);
+        };
+         
+        var $doubledTile = toggleDouble($("a.resizable-tile").first(), true);
+
+        $("a.resizable-tile").hover(function () {
+            if ($(this).attr("id") !== $doubledTile.attr("id")) {
+                toggleDouble($doubledTile, false);
+                $doubledTile = toggleDouble($(this), true);
+            }
+        });
+    });
+</script>

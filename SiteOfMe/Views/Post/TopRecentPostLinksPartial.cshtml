@@ -1,0 +1,11 @@
+﻿@model IEnumerable<SiteOfMe.ViewModels.RecentPostViewModel>
+@using SiteOfMe.Utils
+
+<ol class="fg-color-lighten">
+    @foreach (var post in Model)
+    {
+        <li class="padding5">
+            <a class="sidebar-link fg-color-lighten sidebar-text" href="@Url.Action("Details", "Post", new { id = post.PostId, title=Html.EncodeTitle(post.PostTitle) })">@post.PostTitle</a>
+        </li>
+    }
+</ol>

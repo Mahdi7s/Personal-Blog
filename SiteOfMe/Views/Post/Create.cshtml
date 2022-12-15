@@ -1,0 +1,8 @@
+﻿@using SiteOfMe.Models
+@using Mvc7S;
+@model SiteOfMe.Models.Post
+@{
+    ViewBag.Title = "New Post";
+}
+
+@{ Html.RenderPartial("_CreateEditPartial", Model); }

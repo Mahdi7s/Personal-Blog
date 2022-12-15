@@ -1,0 +1,21 @@
+﻿@model IEnumerable<SiteOfMe.Models.DownFile>
+<ul id="fileList">
+    @foreach (var item in Model)
+    {
+        <li><a href="@item.DownUrl">
+            <img alt="type icon" src="@Html.Action("FileImageSrc", "DownFile", new { extension = item.Extension })" />
+            <p>
+                @Html.Raw(item.Description)
+            </p>
+        </a></li>
+    }
+</ul>
+<script type="text/javascript">
+    $(function () {
+        $('#fileList li').hover(function () {
+            $('#fileList li p').css('margin-top', '-40px').css('display', 'block');
+        }, function () {
+            $('#fileList li p').css('margin-top', '40px').css('display', 'none');
+        });
+    });
+</script>

@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<section id="tabsDiv">
+    <header>
+        @Ajax.ActionLink("مشخصات", "Profile", null,new AjaxOptions { UpdateTargetId = "tabContent" },new{@class="button"})
+        @Ajax.ActionLink("ویرایش", "EditProfile", null, new AjaxOptions{ UpdateTargetId = "tabContent"}, new{@class="button"})
+    </header>
+    <div id="tabContent">
+    </div>
+</section>
+

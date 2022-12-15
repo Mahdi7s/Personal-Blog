@@ -1,0 +1,37 @@
+﻿@model System.Collections.Generic.IEnumerable<SiteOfMe.Models.Appendix>
+@using SiteOfMe.Utils
+
+@helper GetAppendixImageSource(string type, string disName)
+{
+    var retval = string.Empty;
+    switch (type)
+    {
+        case "Image":
+            retval = "#";
+            break;
+        case "JsApp":
+            retval = "#";
+            break;
+    }
+    <img src="@retval" alt="@disName" />
+}
+
+@if (Model != null && Model.Any())
+{
+        foreach (var appendix in Model)
+        {
+            switch (appendix.Type)
+            {
+                case "ZipFile":
+                    <a id="appendix-@appendix.AppendixId" class="place-right tile icon bg-color-@Html.RandomW8BgColor() fg-color-@Html.RandomW8FgColor()" href="@appendix.Content">
+                        <div class="tile-content">
+                            <i class="icon-file-zip"></i>
+                        </div>
+                        <div class="brand">
+                            <span class="name">@appendix.DisplayName</span>
+                        </div>
+                    </a>
+                    break;
+            }                
+        }
+}

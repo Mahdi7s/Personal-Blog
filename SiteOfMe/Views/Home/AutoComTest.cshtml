@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "AutoComTest";
+}
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/smoothness/jquery-ui-1.8.23.custom.css")" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-autocom.min.js")"></script>
+<script type="text/javascript">
+    $(function() {
+        function split(val) {
+            return val.split(/,\s*/);           
+        }
+        
+        function extractLast(term) {
+            return split(term).pop();
+        }
+
+        $("#tagsAuto").bind("keydown", function (e) {
+            if(e.keyCode === $.ui.keyCode.TAB && $(this).data("autocomplete").menu.active) {
+                e.preventDefault();
+            }
+        }).autocomplete({
+            source: function(req, res) {
+                $.getJSON('@Url.Action("TagsFor", "Tag")', { term: extractLast(req.term) }, res);
+            },
+            search: function() {
+                var term = extractLast(this.value);
+                if(term.length < 2) {
+                    return false;
+                }
+            },
+            focus: function() {
+                return false;
+            },
+            select: function(e, ui) {
+                var terms = split(this.value);
+                terms.pop();
+                terms.push(ui.item.value);
+                terms.push("");
+                this.value = terms.join(", ");
+
+                return false;
+            }
+        });
+    });
+</script>
+<div style="direction: ltr">
+    <div class="ui-widget">
+        <input id="tagsAuto" size="50"/>
+    </div>
+</div>

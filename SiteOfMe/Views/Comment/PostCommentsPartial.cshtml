@@ -1,0 +1,11 @@
+﻿@using SiteOfMe.Models
+@model IEnumerable<Comment>
+
+<div class="span12">
+    @foreach (var comment in Model)
+    {
+        <div id="comment-@(comment.CommentId)">
+            @{Html.RenderPartial("_CommentPartial", comment);}
+        </div>
+    }
+</div>

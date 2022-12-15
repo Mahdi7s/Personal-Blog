@@ -1,0 +1,90 @@
+﻿@using System.Linq;
+@using SiteOfMe.Models
+@model SiteOfMe.Models.PostRelate
+@{
+    ViewBag.Title = "Create";
+}
+<h2>@string.Format("چیزهای مرتبط با پست: {0}", Model.Post != null ? Model.Post.Title : "نا معلوم")</h2>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <fieldset>
+            <legend>مرتبط جدید</legend>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PostId)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.PostId, (IEnumerable<SelectListItem>)ViewData["Posts"], "پست مورد نظر را انتخاب کنید")
+                @Html.ValidationMessageFor(model => model.PostId)                
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.RelateType)
+            </div>
+            <div class="editor-field">
+                @(Html.DropDownListFor(model => model.RelateType, new[] { new SelectListItem { Text = "فایل", Value = "File" },
+           new SelectListItem { Text = "پست", Value = "Post" },new SelectListItem { Text = "آدرس", Value = "Url" }}))
+                @Html.ValidationMessageFor(model => model.RelateType)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.RelateValue)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.RelateValue)
+                @Html.ValidationMessageFor(model => model.RelateValue)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.RelateText)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.RelateText)
+                @Html.ValidationMessageFor(model => model.RelateText)
+            </div>
+            <p>
+                <input type="submit" value="اضافه کردن" />
+            </p>
+        </fieldset>
+    }
+</div>
+@if (ViewBag.InsertedPostRelates != null/* && ViewBag.InsertedPostRelates.Count() > 0*/)
+{
+    <div>
+        <fieldset>
+            <legend>مرتبط های اضافه شده</legend>
+            <table>
+                <tr>
+                    <th>
+                        پست
+                    </th>
+                    <th>
+                        نوع مرتبط
+                    </th>
+                    <th>
+                        مقدار مرتبط
+                    </th>
+                    <th>
+                        متن مرتبط
+                    </th>
+                </tr>
+                @foreach (PostRelate pr in ViewBag.InsertedPostRelates)
+                {
+                    <tr>
+                        <td>@pr.Post.Title
+                        </td>
+                        <td>@pr.RelateType
+                        </td>
+                        <td>@pr.RelateValue
+                        </td>
+                        <td>@pr.RelateText
+                        </td>
+                    </tr>
+                }
+            </table>
+        </fieldset>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

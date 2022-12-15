@@ -1,0 +1,17 @@
+﻿@model IEnumerable<SiteOfMe.ViewModels.RecentCommentViewModel>
+@using SiteOfMe.Utils
+
+<ol class="fg-color-lighten">
+    @foreach (var comment in Model)
+    {
+        <li class="padding5">
+            <a class="sidebar-link fg-color-lighten sidebar-text" href="@Url.Action("Details", "Post", new { id = comment.PostId })#comment-@(comment.CommentId)" >
+                <span class="sidebar-link fg-color-lighten sidebar-text">توسط: </span>
+                <span class="sidebar-link fg-color-lighten sidebar-text">@comment.AuthorName</span>
+                <span class="sidebar-link fg-color-lighten sidebar-text">- در: </span>
+                <span class="sidebar-link fg-color-lighten sidebar-text">@comment.PostTitle</span>
+            </a>
+        </li>
+    }
+</ol>
+

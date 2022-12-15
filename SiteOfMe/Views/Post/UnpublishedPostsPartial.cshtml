@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SiteOfMe.Models.Post>
+
+@if (Model.Any())
+{
+    <table class="dataTable">
+        <tr>
+            <th></th>
+            <th>
+                نویسنده
+            </th>
+            <th>
+                عنوان
+            </th>
+            <th>
+                راست به چپ
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {id = item.PostId}) |
+                    @Html.ActionLink("Details", "Details", new {id = item.PostId}) |
+                    @Html.ActionLink("Delete", "Delete", new {id = item.PostId})
+                </td>
+                <td>
+                    @item.User.DisplayName
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.IsRightToLeft
+                </td>
+            </tr>
+        }
+
+    </table>
+}

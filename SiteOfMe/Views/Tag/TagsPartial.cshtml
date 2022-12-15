@@ -1,0 +1,14 @@
+﻿@using SiteOfMe.Utils
+
+@model IEnumerable<SiteOfMe.Models.Tag>
+@foreach (var tag in Model)
+{
+    <a href="@Url.Action("Index", "Post", new { k = tag.Name, c = "tag" })" class="tile icon place-right bg-color-@Html.RandomW8BgColor() fg-color-@Html.RandomW8FgColor()">
+        <div class="tile-content text-center">
+            <h3 style="margin-top:40%;direction: ltr;">@tag.Name</h3>
+        </div>
+        <div class="brand">
+            <span class="badge">@tag.Posts.Count()</span>
+        </div>
+    </a>
+}

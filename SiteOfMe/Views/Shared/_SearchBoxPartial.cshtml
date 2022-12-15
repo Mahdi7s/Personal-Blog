@@ -1,0 +1,12 @@
+﻿<div class="ui-corner-all search-box">
+@using (Html.BeginForm("Index", "Post"))
+{
+    <select name="category">
+        <option value="title">عنوان پست</option>
+        <option value="body">متن پست</option>
+        <option value="tag">تگ پست</option>
+    </select>
+    <input type="text" name="key" />
+    <input type="submit" id="btnSearch" class="ui-icon ui-icon-search"/>
+}
+</div> 

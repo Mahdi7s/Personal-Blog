@@ -1,0 +1,33 @@
+﻿@model SiteOfMe.Models.Quoter
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Quoter</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">Thumb</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Thumb)
+    </div>
+</fieldset>
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.HiddenFor(x => x.QuoterId)
+        @Html.HiddenFor(x => x.Name)
+        @Html.HiddenFor(x => x.Thumb)
+
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

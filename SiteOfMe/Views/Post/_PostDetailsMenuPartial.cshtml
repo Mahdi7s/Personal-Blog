@@ -1,0 +1,32 @@
+﻿@using SiteOfMe.Utils
+@model SiteOfMe.Models.Post
+
+<ul class="postDetialsMenu">
+    @if (User.IsInRole("admin"))
+    {
+        <li>@Html.ActionLink("حذف", "Delete",
+                                   new { id = Model.PostId }, new { @class = "button" })
+        </li> 
+        <li>@Html.ActionLink("ویرایش", "Edit",
+                                   new { id = Model.PostId }, new { @class = "button" })
+        </li>  
+    }
+    <li class="author">
+        @*@Ajax.ActionLink(Model.User.DisplayName, "UserInfoPartial", "Account", new{id=Model.User.UserId}, new AjaxOptions{ InsertionMode = InsertionMode.Replace, LoadingElementDuration = 3000, OnSuccess = "onAuthorInfoReceived", UpdateTargetId = "authorInfo", LoadingElementId = "authorInfoLoading"})*@
+        <a href="#" id="displayAbout" style="color: #EAEAEA; text-decoration: none;">
+                  <span title="نویسنده">@Model.User.DisplayName</span></a>
+        @*<div id="authorInfoLoading" class="loading"></div>
+        <div id="authorInfo" class="author-info"></div>*@
+    </li>
+    <li><span title="زمان ارسال - @Model.PublishDate.ToString("yyyy/MM/dd")">@Model.PublishDate.ToPersianDate()</span></li>
+    <li>@Html.GPluseOne("+1", Url.Action("Details", new { postId = Model.PostId }))</li>
+</ul>
+<script type="text/javascript">
+    $(function() {
+
+    });
+
+    function onAuthorInfoReceived() {
+        
+    }
+</script>

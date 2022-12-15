@@ -1,0 +1,46 @@
+﻿@model System.Collections.Generic.List<SiteOfMe.Models.Quoter>
+
+@{
+    ViewBag.Title = "Create Quoter!";
+}
+
+@using (Html.BeginForm())
+{
+    <div>
+        <label for="Name">نام</label></div><div>
+        <input type="text" id="Name" name="Name" />
+    </div>
+    <div>
+        <label for="Thumb">نام عکس</label></div><div>
+        <input type="text" id="Thumb" name="Thumb" />
+    </div>
+    <div>
+        <input type="submit"  value="درج"/>
+    </div>
+}
+
+<hr />
+
+<table class="striped">
+    <thead>
+        <tr>
+            <th>آیدی</th>
+            <th>نام</th>
+            <th>عکس</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var quoter in Model)
+        {
+            <tr>
+                <td>@quoter.QuoterId</td>
+                <td>@quoter.Name</td>
+                <td>@quoter.Thumb</td>
+                <td>@Html.ActionLink("حذف", "Delete", "Quoter", new { id = quoter.QuoterId }, new { @class="button" })</td>
+                <td>@Html.ActionLink("ویرایش", "Edit", "Quoter", new { id = quoter.QuoterId }, new { @class = "button" })</td>
+            </tr>
+        }
+    </tbody>
+</table>

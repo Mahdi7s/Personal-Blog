@@ -1,0 +1,16 @@
+﻿@using Mvc7S
+@model List<SiteOfMe.Models.RelatedLink>
+@if (!Model.IsNullOrEmpty())
+{
+    <div class="padding10">
+        @foreach (var link in Model)
+        {
+            if (!string.IsNullOrEmpty(link.Url))
+            {
+            <div class="row span12">
+                <a href="@link.Url" class="place-left" style="direction: ltr">@(string.IsNullOrEmpty(link.LinkText) ? link.Url : link.LinkText)</a>
+            </div>
+            }
+        }
+    </div>
+}

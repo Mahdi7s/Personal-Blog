@@ -1,0 +1,12 @@
+﻿@model SiteOfMe.ViewModels.AdminViewModel
+@{
+    ViewBag.Title = "Mahdi7s Managing";
+}
+<section id="tabsDiv">
+    <header>
+        @Ajax.ActionLink(string.Format("نظرات در انتظار تائید ({0})", Model.WaitingCommentsCount), "WaitingCommentsPartial","Comment",null, new AjaxOptions { UpdateTargetId = "tabContent" }, new { @class = "button" })
+        @Ajax.ActionLink(string.Format("پست های منتشر نشده ({0})", Model.UnpublishedPostsCount), "UnpublishedPostsPartial", "Post",null, new AjaxOptions { UpdateTargetId = "tabContent" }, new { @class = "button" })
+    </header>
+    <section id="tabContent">
+    </section>
+</section>

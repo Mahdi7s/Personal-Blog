@@ -1,0 +1,9 @@
+﻿@model IEnumerable<SiteOfMe.Models.Tag>
+           
+<div class="post-tags-container">
+    <span class="tag-icon" title="برچسب ها"></span>
+    @foreach(var tag in Model)
+    {
+        <a class="button" href="@Url.Action("Index", "Post", new { k = tag.Name, c = "tag" })" style="direction: ltr;">@tag.Name</a>
+    }
+</div>

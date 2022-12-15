@@ -1,0 +1,29 @@
+﻿@model IEnumerable<SiteOfMe.Models.Quote>
+@{
+    ViewBag.Title = "Quotes";
+}
+<p>
+    @Html.ActionLink("جدید", "Create", null, new{@class="button"})
+</p><hr/>
+<table class="dataTable">
+    <tr>
+        <th></th>
+        <th>گوینده </th>
+        <th>متن </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink("ویرایش", "Edit", new { id = item.QuoteId }) |
+                @Html.ActionLink("حذف", "Delete", new { id = item.QuoteId })
+            </td>
+            <td>
+                @item.Quoter.Name
+            </td>
+            <td>
+                @item.QuoteText
+            </td>
+        </tr>
+    }
+</table>

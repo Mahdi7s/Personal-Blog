@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SiteOfMe.Models.Comment>
+
+@if (Model.Any())
+{
+    <table class="dataTable">
+        <tr>
+            <th>
+                پست
+            </th>
+            <th>
+                پاسخ
+            </th>
+            <th>
+                نام فرستنده
+            </th>
+            <th>
+                آی پی
+            </th>
+            <th>
+                ایمیل
+            </th>
+            <th>
+                عنوان
+            </th>
+            <th>
+                تاریخ ارسال
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>                 
+                <td>
+                    @Html.ActionLink(item.Post.Title, "Details", "Post", new { postId = item.PostId }, null)
+                </td>
+                <td>
+                    @if (item.Reply != null)
+                    {
+                        <p>@item.Reply.Title</p>
+                    }
+                    else
+                    {
+                        Html.ActionLink("پاسخ", "CreateReply", "Comment", new {id = item.CommentId}, null);
+                    }
+                </td>
+                <td>
+                    @item.AnonymousUser.Name
+                </td>
+                <td>
+                    @item.AnonymousUser.UserIP
+                </td>
+                <td>
+                    @item.AnonymousUser.Email
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @String.Format("{0:g}", item.PublishDate)
+                </td>
+            </tr>
+        }
+    </table>
+}

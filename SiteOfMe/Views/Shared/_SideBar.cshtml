@@ -1,0 +1,245 @@
+﻿@using SiteOfMe.Utils
+
+<div id="side_toolbar" class="toolbar-vertical">
+    <button id="st_up">
+        <i class="icon-arrow-up-2"></i>
+    </button>
+    <button id="st_sidebar">
+        <i class="icon-grid"></i>
+    </button>
+    <button id="st_down">
+        <i class="icon-arrow-down-2"></i>
+    </button>
+</div>
+
+<div id="sidebar" class="span6 place-left" style="display: none">
+    <div id="sidebar_content_wp" class="grid content-wp">
+        <div class="row content-wp">
+            <div id="sidebar_content" class="span5 bg-color-blueDark content-wp">
+                @* Search *@
+                <div class="row">
+                    @using (Html.BeginForm("Index", "Post", FormMethod.Get, new { id = "search_form" }))
+                    {
+                        <input type="hidden" name="c" value="all" />
+                        <div class="input-control text">
+                            <input type="text" name="k" placeholder="جستجوی مطالب" />
+                            <button id="btn_search" type="submit" class="btn-search"></button>
+                        </div>
+                    }
+                </div>
+
+                @* Sharrre!!! *@
+                <span class="label info full-width">به اشتراک گذاری و امتیازدهی</span>
+                <div class="row">
+                    <div class="tiles clearfix" style="padding-top: 10px; padding-left: 10px;">
+                        <div id="googleplus" data-url="@Context.Request.RawUrl" data-text="@ViewBag.title" data-title="share"></div>
+                        <div id="facebook" data-url="@Context.Request.RawUrl" data-text="@ViewBag.title" data-title="share"></div>
+                        <div id="twitter" data-url="@Context.Request.RawUrl" data-text="@ViewBag.title" data-title="share"></div>
+                        <div id="delicious" data-url="@Context.Request.RawUrl" data-text="@ViewBag.title" data-title="share"></div>
+                        <div id="linkedin" data-url="@Context.Request.RawUrl" data-text="@ViewBag.title" data-title="share"></div>
+                    </div>
+                </div>
+
+                @* Recent Posts *@
+                <span class="label info full-width">مطالب اخیر</span>
+                <div class="row">
+                    @{Html.RenderAction("TopRecentPostLinksPartial", "Post");}
+                </div>
+
+                @* Recent Comments *@
+                <span class="label info full-width">نظرات اخیر</span>
+                <div class="row">
+                    @{Html.RenderAction("TopRecentCommentsPartial", "Comment");}
+                </div>
+
+                @* Translation!!! *@
+                <span class="label info full-width">ترجمه</span>
+                <div class="row clearfix">
+                    <div id="google_translate_element" class="fg-color-lighten"></div>
+                    <script type="text/javascript">
+                        function googleTranslateElementInit() {
+                            new google.translate.TranslateElement({ pageLanguage: 'fa', layout: google.translate.TranslateElement.FloatPosition.TOP_LEFT, multilanguagePage: true, gaTrack: true, gaId: 'UA-40643432-1' }, 'google_translate_element');
+                        }
+                    </script>
+                    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                </div>
+
+                @* Others!!! *@
+                <span class="label info full-width">دیگر</span>
+                <div class="row">
+                    <div class="tiles clearfix" style="padding-top: 10px; padding-left: 10px;">
+                        <a class="tile icon sidebar-link bg-color-@Html.RandomW8BgColor() fg-color-@Html.RandomW8FgColor()" href="mailto:info@mahdi7s.com">
+                            <div class="tile-content sidebar-link">
+                                <i class="icon-mail sidebar-link"></i>
+                            </div>
+                            <div class="brand sidebar-link">
+                                <div class="name sidebar-link">Mail</div>
+                            </div>
+                        </a>
+                        <a href="http://feeds.feedburner.com/7sfeed" class="tile icon sidebar-link bg-color-@Html.RandomW8BgColor() fg-color-@Html.RandomW8FgColor()">
+                            <div class="tile-content sidebar-link">
+                                <i class="icon-feed sidebar-link"></i>
+                            </div>
+                            <div class="brand sidebar-link">
+                                <div class="name sidebar-link">
+                                    Feeds
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="span1" style="height: 100%; width: 20px; margin: 0;">
+                <span id="toggle_sidebar" style="position: fixed; top: 50%; width: 27px; height: 50px; background-color: #ccc; cursor: pointer;">
+                    <i class="icon-arrow-left-2" style="margin-top: 17px; margin-right: 8px;"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display: none" id="shareTemplate">
+    <div id="Tgoogleplus">
+        <a href="#" class="tile icon googleplus bg-color-@Html.RandomW8BgColor() fg-color-@Html.RandomW8FgColor()">
+            <div class="tile-content">
+                <i class="icon-google-plus"></i>
+            </div>
+            <div class="brand">
+                <div class="badge count">{total}</div>
+                <div class="name">+1</div>
+            </div>
+        </a>
+    </div>
+    <div id="Tfacebook">
+        <a href="#" class="tile icon facebook bg-color-@Html.RandomW8BgColor() fg-color-@Html.RandomW8FgColor()">
+            <div class="tile-content">
+                <i class="icon-facebook"></i>
+            </div>
+            <div class="brand">
+                <div class="badge count">{total}</div>
+                <div class="name">Like</div>
+            </div>
+        </a>
+    </div>
+    <div id="Ttwitter">
+        <a href="#" class="tile icon twitter bg-color-@Html.RandomW8BgColor() fg-color-@Html.RandomW8FgColor()">
+            <div class="tile-content">
+                <i class="icon-twitter"></i>
+            </div>
+            <div class="brand">
+                <div class="badge count">{total}</div>
+                <div class="name">Tweet</div>
+            </div>
+        </a>
+    </div>
+    <div id="Tdelicious">
+        <a href="#" class="tile icon delicious bg-color-@Html.RandomW8BgColor() fg-color-@Html.RandomW8FgColor()">
+            <div class="tile-content">
+                <i class="icon-delicious"></i>
+            </div>
+            <div class="brand">
+                <div class="badge count">{total}</div>
+                <div class="name">delicious</div>
+            </div>
+        </a>
+    </div>
+    <div id="Tlinkedin">
+        <a href="#" class="tile icon linkedin bg-color-@Html.RandomW8BgColor() fg-color-@Html.RandomW8FgColor()">
+            <div class="tile-content">
+                <i class="icon-linkedin"></i>
+            </div>
+            <div class="brand">
+                <div class="badge count">{total}</div>
+                <div class="name">linkedin</div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        sof.initScrolling();
+
+        var isSidebarSlided = false,
+            toggleSlideSidebar = function () {
+                $('#sidebar').toggle('slide', {
+                    direction: 'left',
+                    easing: 'swing',
+                }, 200, function () {
+                    isSidebarSlided = !isSidebarSlided;
+                });
+            };
+        $('#st_sidebar').click(function () {
+            toggleSlideSidebar();
+        });
+        $('#toggle_sidebar').click(function () {
+            toggleSlideSidebar();
+        });
+        $('#sidebar').click(function (e) {
+            if (e.toElement.id == 'btn_search') return true;
+            if ($(e.toElement).hasClass('sidebar-link')) return true;
+
+            e.stopPropagation();
+            return false;
+        });
+        $(document).click(function () {
+            isSidebarSlided && toggleSlideSidebar();
+        });
+
+        $('#googleplus').sharrre({
+            share: {
+                googlePlus: true
+            },
+            enableHover: false,
+            template: $('#Tgoogleplus').html(),
+            click: function (api, options) {
+                api.simulateClick();
+                api.openPopup('googleplus');
+            }
+        });
+        $('#twitter').sharrre({
+            share: {
+                twitter: true
+            },
+            enableHover: false,
+            template: $('#Ttwitter').html(),
+            click: function (api, options) {
+                api.simulateClick();
+                api.openPopup('twitter');
+            }
+        });
+        $('#facebook').sharrre({
+            share: {
+                facebook: true
+            },
+            enableHover: false,
+            template: $('#Tfacebook').html(),
+            click: function (api, options) {
+                api.simulateClick();
+                api.openPopup('facebook');
+            }
+        });
+        $('#delicious').sharrre({
+            share: {
+                delicious: true
+            },
+            enableHover: false,
+            template: $('#Tdelicious').html(),
+            click: function (api, options) {
+                api.simulateClick();
+                api.openPopup('delicious');
+            }
+        });
+        $('#linkedin').sharrre({
+            share: {
+                linkedin: true
+            },
+            enableHover: false,
+            template: $('#Tlinkedin').html(),
+            click: function (api, options) {
+                api.simulateClick();
+                api.openPopup('linkedin');
+            }
+        });
+    });
+</script>

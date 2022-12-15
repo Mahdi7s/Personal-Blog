@@ -1,0 +1,72 @@
+﻿@model SiteOfMe.Models.Post
+@{
+    ViewBag.Title = Model.Title;
+}
+
+
+<link href="@Url.Content("~/Content/SyntaxHilighter/styles/shCore.css")" rel="Stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/SyntaxHilighter/styles/shThemeRDark.css")" rel="Stylesheet" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Content/SyntaxHilighter/scripts/shCore.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Content/SyntaxHilighter/scripts/shAutoloader.js")"></script>
+
+
+@*<link href="@Url.Content("~/Scripts/google-code-prettify/prettify.css")" rel="Stylesheet" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/google-code-prettify/prettify.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/google-code-prettify/run_prettify.js")"></script>*@
+
+<script type="text/javascript">
+    $(function () {
+        sof.enableSyntaxHighlighter('@Url.Content("~/Content/SyntaxHilighter/scripts/")');
+    });
+</script>
+
+<div class="grid">
+    <header class="row">
+        <h3 id="title" class="bg-color-blue fg-color-white padding5">@Model.Title</h3>
+    </header>
+    <section class="row padding5">
+        @Html.Raw(Model.Body.Value)
+    </section>
+    @if (Model.Tags.Any())
+    {
+        <section class="tiles clearfix">
+            <span class="span12 label place-left info">برچسب(های) مرتبط با مطلب</span>
+            @{Html.RenderAction("TagsPartial", "Tag", new { postId = Model.PostId });}
+        </section>
+    }
+    @if (Model.RelatedLinks.Any())
+    {
+        <section class="row">
+            <span class="span12 label place-left info">لینک(های) مرتبط با مطلب</span>
+            @{Html.RenderAction("PostRelatedLinks", "RelatedLink", new { id = Model.PostId });}
+        </section>
+    }
+
+    @if (Model.Appendices.Any())
+    {
+        <section class="tiles clearfix">
+            <span class="span12 label place-left info">ضمیمه(های) مرتبط با مطلب</span>
+            @{Html.RenderAction("AppendicesPartial", "Appendix", new { postId = Model.PostId });}
+        </section>
+    }
+
+    <section class="row">
+        <span class="span12 label info place-left">نظرات</span>
+        <section class="row">
+            @if (Model.Comments.Any())
+            {
+                Html.RenderAction("PostCommentsPartial", "Comment", new { postId = Model.PostId });
+            }
+            else
+            {
+                <div class="text-center">
+                    <h3>اولین نفری باشید که در مورد این مطلب نظر می دهد!</h3>
+                </div>
+            }
+        </section>
+        <section class="row">
+            @{ Html.RenderAction("CreateNewPartial", "Comment", new { postId = Model.PostId }); }
+        </section>
+    </section>
+</div>
+

@@ -1,0 +1,32 @@
+﻿@model SiteOfMe.Models.Quote
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Are you sure you want to delete this?</h3>
+
+@if (Model.Quoter != null)
+{
+    <div class="display-label">Author</div>
+    <div class="display-field">@Model.Quoter.Name</div>
+}
+
+<div class="display-label">QuoteText</div>
+<div class="display-field">@Model.QuoteText</div>
+
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.HiddenFor(x => x.QuoteId)
+        @Html.HiddenFor(x => x.QuoterId)
+        @Html.HiddenFor(x => x.IsRightToLeft)
+        @Html.HiddenFor(x => x.LastShownTime)
+        @Html.HiddenFor(x => x.QuoteText)
+
+        <input type="submit" value="Delete" />
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
+

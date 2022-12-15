@@ -1,0 +1,12 @@
+﻿@model SiteOfMe.ViewModels.CommentReplyViewModel
+           
+@using (Ajax.BeginForm("CreateReply", "Comment", null,new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "comment-" + Model.CommentId }, new{@id="replyForm"}))
+{
+    @Html.HiddenFor(model => model.CommentId)
+    <div>
+        @Html.TextAreaFor(model => model.Reply, new{@style="width:60%;height:100px;"})
+    </div>
+    <p>
+        <input type="submit" value="ثبت" class="button" />
+    </p>
+}

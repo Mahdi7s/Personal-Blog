@@ -1,0 +1,38 @@
+﻿.metrouicss .input-control.text .helper,
+.metrouicss .input-control.password .helper,
+.metrouicss .input-control.text [class^="btn-"],
+.metrouicss .input-control.password [class^="btn-"] {
+  font-family: "iconFont" !important;
+  background: #fff;
+  top: 2px;
+  width: 26px !important;
+  height: 27px !important;
+  min-width: 26px !important;
+  min-height: 27px !important;
+  cursor: pointer;
+  color: #000;
+  position: absolute;
+  right: 100%;
+  margin-right: -28px;
+  display: block;
+  border: 1px #fff solid;
+}
+
+.metrouicss .input-control > input[type=text],
+.metrouicss .input-control > input[type=email],
+.metrouicss .input-control > input[type=url],
+.metrouicss .input-control > input[type=phone],
+.metrouicss .input-control > input[type=password],
+.metrouicss .input-control > input[type=number],
+.metrouicss .input-control > input[type=time],
+.metrouicss .input-control > select,
+.metrouicss .input-control > textarea {
+  border: 1px #bababa solid;
+  width: 100%;
+  padding: 4px 6px 6px 5px;
+  background-color: #fff;
+  outline: 0;
+  margin-right: 0;
+  min-height: 32px;
+  position: relative;
+}

@@ -1,0 +1,22 @@
+﻿@model SiteOfMe.Models.Post
+
+@{
+    ViewBag.Title = "Delete Post";
+}
+
+@using (Html.BeginForm()) {
+    <section>
+        <header>
+            <h3>آیا مایل به حذف این ‍‍مطلب هستید؟</h3>
+        </header><hr/>
+        @Html.HiddenFor(x=>x.PostId)
+        <div>ارسال شده توسط : <span>@Model.User.UserName</span></div>
+        <div>عنوان پست : <span>@Model.Title</span></div>
+    </section>
+    
+    <p>
+        <input type="submit" value="حذف" class="button" />
+    </p>
+}
+
+

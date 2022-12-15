@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1">
+    @*<meta name="description" content="Metro UI CSS">
+    <meta name="author" content="Mahdi7$">
+    <meta name="keywords" content="windows 8, modern style, Metro UI, style, modern, css, framework">*@
+    <meta name="google-translate-customization" content="b71f1602e33e0877-6a5ed5c0268a036a-g498897538f3919b4-f">
+
+    <title>@ViewBag.Title</title>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-migrate-1.1.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.10.3.custom.min.js")" type="text/javascript"></script>    
+    <script src="@Url.Content("~/Scripts/jquery.sharrre-1.3.4.min.js")" type="text/javascript" ></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/sof.js")" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/modern.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/modern-responsive.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/modern-rtl.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/site.css")" />
+
+    @*<script src="@Url.Content("~/Scripts/jquery.mousewheel.min.js")" type="text/javascript" ></script>
+
+    <script src="@Url.Content("~/Scripts/metro/accordion.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/metro/buttonset.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/metro/calendar.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/metro/carousel.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/metro/dialog.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/metro/dropdown.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/metro/input-control.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/metro/pagecontrol.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/metro/rating.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/metro/slider.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/metro/start-menu.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/metro/tile-drag.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/metro/tile-slider.js")" type="text/javascript" ></script>*@
+
+    @*
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/template.css")" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    *@
+
+</head>
+<body style="zoom: 1;" class="metrouicss">
+    <nav id="navbar">
+        <div class="nav-bar">
+            @{ Html.RenderPartial("_Menu"); }
+        </div>
+    </nav>
+
+    <div id="quotebar">
+        @{ Html.RenderAction("CurrentQuotePartial", "Quote"); }
+    </div>
+
+    <div id="page" class="page">
+        @RenderBody()
+    </div>
+
+    <footer id="footer">
+        <div class="nav-bar">
+            <div class="nav-bar-inner">
+                <div class="grid text-center" style="margin-bottom:0">
+                    <h4 class="fg-color-lighten" style="direction: ltr;margin-top:7px;">&copy;@DateTime.Now.Year Mahdi7s.com. All rights reserved.</h4>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    @{ Html.RenderPartial("_SideBar"); }
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-40643432-1', 'mahdi7s.com');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>
